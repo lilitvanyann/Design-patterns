@@ -1,16 +1,10 @@
 #include <iostream>
 using namespace std;
 
-// Abstraction
-class Database {
+// Low-level class
+class MySQL {
 public:
-    virtual void save() = 0;
-};
-
-// Low-level implementation
-class MySQL : public Database {
-public:
-    void save() override {
+    void save() {
         cout << "Saving to MySQL" << endl;
     }
 };
@@ -18,21 +12,16 @@ public:
 // High-level class
 class User {
 private:
-    Database& database;
+    MySQL database;   
 
 public:
-    User(Database& db) : database(db) {}
-
     void saveUser() {
         database.save();
     }
 };
 
 int main() {
-
-    MySQL mysql;
-
-    User user(mysql);
+    User user;
 
     user.saveUser();
 
